@@ -19,6 +19,7 @@ const swaggerDocument = YAML.load("src/yaml/swagger.yaml");
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
+
 app.get("/", (req, res) => {
 res.json({
 status: "200",
@@ -29,7 +30,6 @@ docs: "/api-docs"
 }
 });
 });
-
 
 
 app.use(errorHandler);
