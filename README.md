@@ -177,7 +177,7 @@ Esto ayuda a evitar datos incompletos en la base.
 La API incluye documentación visual con Swagger:
 
 ```bash
-https://proyectom2joaquingonzalezft73-production.up.railway.app/api-docs/ 
+https:rest-api-node-production-551b.up.railway.app/api-docs/ 
 ```
 
 Desde ahí podés explorar todos los endpoints.
@@ -207,8 +207,8 @@ Si querés correr la API en tu propia máquina:
 ### 1. Clonar repositorio
 
 ```bash
-git clone https://github.com/JoaquinG-eng/ProyectoM2_JoaquingonzalezFT73.git
-cd ProyectoM2_JoaquingonzalezFT73
+git https://github.com/JoaquinG-eng/Rest-Api-Node.git
+cd Rest-Api-Node
 ```
 
 ---
@@ -350,4 +350,4 @@ La API tiene un middleware global que captura errores automáticamente.
 
 ### Autor
 
-Joaquín Gonzalez FT73
+Joaquín Gonzalez 
