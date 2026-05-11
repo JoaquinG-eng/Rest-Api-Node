@@ -6,8 +6,11 @@ info:
   description: API REST para gestionar autores y posts de un blog
 
 servers:
+  - url: https://rest-api-node-production-551b.up.railway.app
+    description: Producción (Railway)
   - url: http://localhost:3000
-  - url: http://rest-api-node-production-551b.up.railway.app
+    description: Local
+
 tags:
   - name: Authors
     description: Operaciones relacionadas a autores
@@ -58,7 +61,6 @@ components:
 
 paths:
 
-  
   /api/authors:
     get:
       tags: [Authors]
@@ -150,8 +152,6 @@ paths:
           description: Autor eliminado
         404:
           description: Autor no encontrado
-
-
 
   /api/posts:
     get:
