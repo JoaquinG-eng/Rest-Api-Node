@@ -6,8 +6,8 @@ info:
   description: API REST para gestionar autores y posts de un blog
 
 servers:
-  - url: https://rest-api-node-production-551b.up.railway.app
-    description: Producción (Railway)
+  - url: https://rest-api-node-pbza.onrender.com
+    description: Producción (OnRender)
   - url: http://localhost:3000
     description: Local
 
