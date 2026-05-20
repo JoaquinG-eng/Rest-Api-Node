@@ -15,7 +15,16 @@ const __dirname = dirname(__filename);
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://127.0.0.1:5500",
+    "http://localhost:5500",
+    "http://localhost:5173",
+    "https://tu-proyecto.vercel.app"  // ← reemplazá con tu URL de Vercel cuando la tengas
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type"]
+}));
 
 app.use("/api/authors", authorsRoutes);
 app.use("/api/posts", postsRoutes);
