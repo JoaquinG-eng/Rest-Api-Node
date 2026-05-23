@@ -1,4 +1,4 @@
-# Blog API 📝
+# Blog API
 
 API REST para gestionar el contenido de un blog: autores y sus publicaciones. Permite crear, leer, actualizar y eliminar tanto autores como posts, manteniendo la relación entre ellos.
 
@@ -8,9 +8,9 @@ El proyecto aplica una arquitectura ordenada con separación por capas, validaci
 
 ## Demo
 
-🔗 **Deploy activo:** [rest-api-node-production-551b.up.railway.app](https://rest-api-node-production-551b.up.railway.app)
+**Deploy activo:** [rest-api-node-pbza.onrender.com](https://rest-api-node-pbza.onrender.com)
 
-📄 **Documentación Swagger:** [rest-api-node-production-551b.up.railway.app/api-docs](https://rest-api-node-production-551b.up.railway.app/api-docs)
+**Documentación Swagger:** [rest-api-node-pbza.onrender.com/api-docs](https://rest-api-node-pbza.onrender.com/api-docs)
 
 ---
 
@@ -21,16 +21,15 @@ El proyecto aplica una arquitectura ordenada con separación por capas, validaci
 | Node.js | Entorno de ejecución |
 | Express | Framework HTTP |
 | PostgreSQL | Base de datos relacional |
+| Neon | Hosting de base de datos |
 | pg | Cliente de PostgreSQL para Node |
 | Vitest + Supertest | Testing de endpoints |
 | Swagger (OpenAPI) | Documentación interactiva |
-| Railway | Plataforma de deploy |
+| Render | Plataforma de deploy |
 
 ---
 
 ## Estructura del proyecto
-
-```
 /
 ├── src/
 │   ├── controllers/
@@ -63,7 +62,6 @@ El proyecto aplica una arquitectura ordenada con separación por capas, validaci
 ├── .gitignore
 ├── package.json
 └── README.md
-```
 
 ---
 
@@ -97,34 +95,34 @@ El proyecto aplica una arquitectura ordenada con separación por capas, validaci
 ### Obtener todos los autores
 
 ```bash
-GET https://rest-api-node-production-551b.up.railway.app/api/authors
+GET https://rest-api-node-pbza.onrender.com/api/authors
 ```
 
 ### Crear un autor
 
 ```bash
-POST https://rest-api-node-production-551b.up.railway.app/api/authors
+POST https://rest-api-node-pbza.onrender.com/api/authors
 Content-Type: application/json
 
 {
-  "name": "Joaquín González"
+  "name": "Joaquín González",
+  "email": "joaquin@example.com",
+  "bio": "Desarrollador fullstack"
 }
 ```
 
 ### Crear un post
 
 ```bash
-POST https://rest-api-node-production-551b.up.railway.app/api/posts
+POST https://rest-api-node-pbza.onrender.com/api/posts
 Content-Type: application/json
 
 {
   "title": "Mi primer post",
   "content": "Contenido del post",
-  "author_id": 1
+  "authorId": 1
 }
 ```
-
-> ⚠️ El campo es `author_id` (no `authorId`) para mantener consistencia con la base de datos.
 
 ### Error por datos faltantes
 
@@ -153,45 +151,16 @@ npm install
 
 ### 3. Configurar variables de entorno
 
-Copiá el archivo de ejemplo y completá con tus valores:
-
 ```bash
 cp .env.example .env
 ```
 
 ```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=miniblog
-DB_USER=tu_usuario
-DB_PASSWORD=tu_password
+DATABASE_URL=postgresql://usuario:password@host/database?sslmode=require
 PORT=3000
 ```
 
-### 4. Crear la base de datos
-
-```sql
-CREATE DATABASE miniblog;
-```
-
-### 5. Crear las tablas
-
-```sql
-CREATE TABLE authors (
-  id SERIAL PRIMARY KEY,
-  name TEXT NOT NULL
-);
-
-CREATE TABLE posts (
-  id SERIAL PRIMARY KEY,
-  title TEXT NOT NULL,
-  content TEXT NOT NULL,
-  author_id INTEGER NOT NULL,
-  FOREIGN KEY (author_id) REFERENCES authors(id) ON DELETE CASCADE
-);
-```
-
-### 6. Levantar el servidor
+### 4. Levantar el servidor
 
 ```bash
 npm run dev
@@ -206,42 +175,37 @@ La documentación Swagger en `http://localhost:3000/api-docs`
 ## Testing
 
 ```bash
-# Correr los tests
 npm test
-
-# Modo watch
 npm run test:watch
-
-# Reporte de cobertura
 npm run test:coverage
 ```
 
 ---
 
-## Deploy en Railway
-
-### Variables de entorno necesarias en Railway
-
-```env
-DATABASE_URL=${{Postgres.DATABASE_URL}}
-NODE_ENV=production
-```
-
-### Pasos
+## Deploy en Render
 
 1. Subir el código a GitHub
-2. Conectar el repositorio en [Railway](https://railway.app)
-3. Agregar las variables de entorno en el dashboard
-4. Railway ejecuta automáticamente `npm start`
-5. Generar dominio en **Settings → Networking**
+2. Crear un nuevo Web Service en [Render](https://render.com)
+3. Conectar el repositorio
+4. Configurar:
+   - **Build Command:** `npm install`
+   - **Start Command:** `node src/server.js`
+5. Agregar variable de entorno `DATABASE_URL` con la connection string de Neon
+6. Deploy
 
-Cada `git push` redeploya automáticamente.
+Cada `git push` a `main` redesploya automáticamente.
+
+---
+
+## Base de datos
+
+La base de datos está hosteada en [Neon](https://neon.tech). El schema completo está en `sql/schema.sql`.
 
 ---
 
 ## Manejo de errores
 
-La API tiene un middleware global (`Error.Middlewares.js`) que captura todos los errores y devuelve respuestas consistentes con el código HTTP correspondiente.
+Middleware global en `Error.Middlewares.js` que captura todos los errores y devuelve respuestas consistentes con el código HTTP correspondiente.
 
 ---
 
